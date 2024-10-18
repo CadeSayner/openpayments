@@ -1,15 +1,18 @@
 const express = require('express')
+const cors = require('cors')
 const { createAuthenticatedClient } = require('@interledger/open-payments');
 
 const app = express()
 const port = 3000
+app.use(cors());
 
 app.get('/payment', (req, res) => {
   handlePayment(res, req.query.amount, req.query.from, req.query.to);
 })
 
+
 app.get('/', (req, res) => {
-    res.send("POESKLAP");
+    res.send("POES");
 })
 
 async function handlePayment(res, amount, wallet_from, wallet_to) {
