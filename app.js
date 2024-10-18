@@ -8,7 +8,9 @@ app.get('/payment', (req, res) => {
   handlePayment(res, req.query.amount, req.query.from, req.query.to);
 })
 
-//moewmoney
+app.get('/', (req, res) => {
+    res.send("POESKLAP");
+})
 
 async function handlePayment(res, amount, wallet_from, wallet_to) {
     // 1. Get a grant for an incoming payment
