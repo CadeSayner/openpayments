@@ -101,7 +101,7 @@ async function handlePayment(res, amount, wallet_from, wallet_to) {
 
     // 6. User interaction send back the redirect uri
     console.log(outgoingPaymentGrant);
-    res.send(JSON.stringify(outgoingPaymentGrant.interact.redirect));
+    res.json(outgoingPaymentGrant.interact.redirect);
     // 7. Continue outgoing payment grant 
     await retryCompletePayment(client, outgoingPaymentGrant, sendingWalletAddress, quote);
 }
