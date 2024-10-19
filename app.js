@@ -12,7 +12,7 @@ app.get('/payment', (req, res) => {
 
 
 app.get('/', (req, res) => {
-    res.send("POES");
+    res.send("Hello World");
 })
 
 async function handlePayment(res, amount, wallet_from, wallet_to) {
@@ -95,7 +95,12 @@ async function handlePayment(res, amount, wallet_from, wallet_to) {
             }]
         },
         interact:{
-            start: ["redirect"]
+            start: ["redirect"],
+            finish: {
+            method: "redirect",
+            uri: "http://localhost:5173",
+            nonce: NONCE,
+      },
         }
     })
 
