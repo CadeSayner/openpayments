@@ -98,8 +98,8 @@ async function handlePayment(res, amount, wallet_from, wallet_to) {
             start: ["redirect"],
             finish: {
             method: "redirect",
-            uri: "http://localhost:5173",
-            nonce: NONCE,
+            uri: "http://localhost:5173/thankyou",
+            nonce: "100",
       },
         }
     })
