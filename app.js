@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const { createAuthenticatedClient } = require('@interledger/open-payments');
+const { OpenAI } = require("openai");
+const openai = new OpenAI({ apiKey: "" }); // openai 
 
 const app = express()
 const port = 3000
@@ -10,10 +12,26 @@ app.get('/payment', (req, res) => {
   handlePayment(res, req.query.amount, req.query.from, req.query.to);
 })
 
+app.get('/generateBio', (req, res) => {
+    let name = req.query.name;
+    let breed = req.query.breed;
+    let hobby = req.query.hobby;
+    let type = req.query.type;
+    generateBio(name, breed, hobby, type, res);
+})
 
 app.get('/', (req, res) => {
     res.send("Hello World");
 })
+
+async function generateBio(name, breed, hobbies,type,  res){
+    const prompt = `Generate a bio for a ${type} named ${name}, and breed ${breed} with hobbies ${hobbies} , less than 50 words.`
+    const completion = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+    });
+    res.send(completion.choices[0].message.content);
+}
 
 async function handlePayment(res, amount, wallet_from, wallet_to) {
     // 1. Get a grant for an incoming payment
